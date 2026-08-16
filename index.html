@@ -5,17 +5,17 @@
   <title>Tradisi Kopitiam</title><meta name="description" content="Heritage flavours, reimagined for today. Explore Tradisi Kopitiam.">
   <link rel="icon" href="tradisi-logo.svg"><link rel="stylesheet" href="style.css">
   <style>
-    .hero-art{position:absolute!important;inset:0!important;z-index:0!important}
-    .hero-food-cover{position:absolute!important;z-index:6!important;right:0!important;top:72px!important;width:58%!important;height:calc(100% - 72px)!important;pointer-events:none;background-image:linear-gradient(90deg,rgba(20,44,45,.78) 0%,rgba(20,44,45,.28) 13%,rgba(20,44,45,0) 30%),url('hero-food-new.jpg?v=20260816-1830')!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important}
-    .shade{z-index:2!important;pointer-events:none}.hero-copy{z-index:8!important}.topbar{z-index:20!important}
-    @media(max-width:900px){.hero-food-cover{top:68px!important;height:calc(100% - 68px)!important;width:62%!important}}
-    @media(max-width:600px){.hero-food-cover{top:64px!important;height:calc(100% - 64px)!important;width:68%!important}}
+    .hero{position:relative!important;overflow:hidden!important;background:#142c2d!important}
+    .hero-art{position:absolute!important;inset:0!important;z-index:0!important;background-image:url('hero-rendang.jpg?v=20260816-2100')!important;background-size:cover!important;background-position:center 58%!important;background-repeat:no-repeat!important;filter:none!important}
+    .hero-art:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,28,29,.90) 0%,rgba(10,28,29,.67) 34%,rgba(10,28,29,.20) 62%,rgba(10,28,29,.04) 100%)}
+    .hero-food-cover{display:none!important}.shade{display:none!important}.hero-copy{position:relative!important;z-index:8!important}.topbar{z-index:20!important;background:linear-gradient(180deg,rgba(12,31,32,.88),rgba(12,31,32,.48))!important}
+    @media(max-width:600px){.hero-art{background-position:58% center!important}.hero-art:after{background:linear-gradient(90deg,rgba(10,28,29,.90) 0%,rgba(10,28,29,.66) 48%,rgba(10,28,29,.16) 100%)!important}.hero-copy{max-width:92%!important}}
   </style>
 </head>
 <body>
 <header class="topbar"><a class="brand" href="#top"><img src="tradisi-logo.svg" alt="Tradisi Kopitiam"><span><b>TRADISI</b><small>KOPITIAM</small></span></a><nav><a href="#story">Our Story</a><a href="#menu">Menu</a></nav><button id="navBtn" aria-label="Open menu">☰</button></header>
 <main>
-<section class="hero" id="top"><div class="hero-art"></div><div class="shade"></div><div class="hero-food-cover" aria-hidden="true"></div><div class="hero-copy"><p class="eyebrow">A TASTE THAT FEELS LIKE HOME</p><h1>Heritage flavours.<br><em>Made for today.</em></h1><p>Familiar kopitiam favourites, thoughtfully prepared for every generation.</p><a class="cta" href="#menu">Explore Menu <span>↓</span></a></div></section>
+<section class="hero" id="top"><div class="hero-art"></div><div class="hero-copy"><p class="eyebrow">A TASTE THAT FEELS LIKE HOME</p><h1>Heritage flavours.<br><em>Made for today.</em></h1><p>Familiar kopitiam favourites, thoughtfully prepared for every generation.</p><a class="cta" href="#menu">Explore Menu <span>↓</span></a></div></section>
 <section class="story" id="story"><p class="eyebrow dark">TIME-HONOURED, MADE FOR TODAY</p><div><h2>Familiar favourites.<br><em>Unforgettable flavour.</em></h2><p>From classic breakfasts to beloved Malaysian favourites, every dish celebrates the flavours we grew up with — honest, comforting and always worth coming back for.</p></div></section>
 <section class="menu-section" id="menu"><div class="menu-head"><div><p class="eyebrow dark">OUR SELECTION</p><h2>The <em>Tradisi</em> Menu</h2></div><p>Select any category to explore the full menu and view prices in greater detail.</p></div><div class="filters" id="filters"></div><div class="grid" id="grid"></div></section>
 <section class="closing"><div><p class="eyebrow">ONE TABLE, A THOUSAND STORIES</p><h2>Find your<br><em>favourite flavour.</em></h2></div><a class="outline" href="#menu">View Full Menu ↑</a></section>
