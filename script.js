@@ -1,10 +1,127 @@
-const sections=[['all','Semua'],['breakfast','Sarapan'],['mains','Hidangan Utama'],['noodles','Mi & Nasi'],['snacks','Snek'],['vegetarian','Vegetarian'],['dessert','Pencuci Mulut'],['drinks','Minuman']];
-const pages=[
-{p:2,s:'breakfast',t:'Breakfast Set',n:'Pagi yang sempurna bermula di sini'},{p:3,s:'breakfast',t:'All-Day Breakfast',n:'Kegemaran sarapan, sepanjang hari'},{p:4,s:'mains',t:'Truly Malaysia',n:'Rasa tempatan yang dekat di hati'},{p:5,s:'noodles',t:'Fried Favourite',n:'Wok hei, segar dan penuh rasa'},{p:6,s:'noodles',t:'Noodle',n:'Mi berkuah dan kering pilihan ramai'},{p:7,s:'mains',t:'Rice & Add-On',n:'Padankan hidangan ikut selera anda'},{p:8,s:'snacks',t:'Snack Selection',n:'Untuk dikongsi atau dinikmati sendiri'},{p:9,s:'snacks',t:'Local Snacks',n:'Cita rasa nostalgia kopitiam'},{p:10,s:'vegetarian',t:'Vegetarian',n:'Pilihan hijau yang tetap memuaskan'},{p:11,s:'dessert',t:'Dessert',n:'Manis, sejuk dan menyegarkan'},{p:12,s:'dessert',t:'Dessert of the Day',n:'Sesuatu yang istimewa sebagai penutup'},{p:13,s:'drinks',t:'Beverage',n:'Kopi, teh dan minuman kegemaran'},{p:14,s:'drinks',t:'Cold Beverage',n:'Segarkan hari anda'}];
-let active='all';const filters=document.querySelector('#filters'),grid=document.querySelector('#grid'),viewer=document.querySelector('#viewer');
-function renderFilters(){filters.innerHTML=sections.map(([id,label])=>`<button data-id="${id}" class="${id===active?'active':''}">${label}</button>`).join('');filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.id;renderFilters();renderGrid()})}
-function renderGrid(){const shown=active==='all'?pages:pages.filter(x=>x.s===active);grid.innerHTML=shown.map(x=>`<button class="card" data-page="${x.p}"><img loading="lazy" src="menu/page-${String(x.p).padStart(2,'0')}.webp" alt="${x.t} menu"><span class="overlay"></span><span class="num">${String(x.p-1).padStart(2,'0')}</span><span class="copy"><small>${x.n}</small><b>${x.t}</b><i>Lihat menu penuh →</i></span></button>`).join('');grid.querySelectorAll('.card').forEach(c=>c.onclick=()=>openMenu(pages.find(x=>x.p==c.dataset.page)))}
-function openMenu(x){document.querySelector('#viewerTitle').textContent=x.t;document.querySelector('#viewerImg').src=`menu/page-${String(x.p).padStart(2,'0')}.webp`;viewer.hidden=false;document.body.style.overflow='hidden'}
-function closeViewer(){viewer.hidden=true;document.body.style.overflow=''}document.querySelector('#closeViewer').onclick=closeViewer;viewer.onclick=e=>{if(e.target===viewer)closeViewer()};
-const mobileNav=document.querySelector('#mobileNav');document.querySelector('#navBtn').onclick=()=>{mobileNav.hidden=false;document.body.style.overflow='hidden'};document.querySelector('#closeNav').onclick=()=>{mobileNav.hidden=true;document.body.style.overflow=''};mobileNav.querySelectorAll('a').forEach(a=>a.onclick=()=>{mobileNav.hidden=true;document.body.style.overflow=''})
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeViewer();mobileNav.hidden=true}});renderFilters();renderGrid();
+const sections = [
+  ['all', 'All'],
+  ['breakfast', 'Breakfast'],
+  ['mains', 'Main Dishes'],
+  ['noodles', 'Noodles & Rice'],
+  ['snacks', 'Snacks'],
+  ['vegetarian', 'Vegetarian'],
+  ['dessert', 'Desserts'],
+  ['drinks', 'Beverages']
+];
+
+const pages = [
+  { p: 2, s: 'breakfast', t: 'Breakfast Set', n: 'A perfect start to your morning' },
+  { p: 3, s: 'breakfast', t: 'All-Day Breakfast', n: 'Breakfast favourites, served all day' },
+  { p: 4, s: 'mains', t: 'Truly Malaysian', n: 'Local flavours close to the heart' },
+  { p: 5, s: 'noodles', t: 'Fried Favourites', n: 'Fresh from the wok and full of flavour' },
+  { p: 6, s: 'noodles', t: 'Noodles', n: 'Popular soup and dry noodle selections' },
+  { p: 7, s: 'mains', t: 'Rice & Add-Ons', n: 'Build your meal just the way you like it' },
+  { p: 8, s: 'snacks', t: 'Snack Selection', n: 'Perfect for sharing or enjoying on your own' },
+  { p: 9, s: 'snacks', t: 'Local Snacks', n: 'Classic kopitiam favourites with a nostalgic touch' },
+  { p: 10, s: 'vegetarian', t: 'Vegetarian', n: 'Wholesome choices full of flavour' },
+  { p: 11, s: 'dessert', t: 'Desserts', n: 'Sweet, chilled and refreshing' },
+  { p: 12, s: 'dessert', t: 'Dessert of the Day', n: 'A special treat to complete your meal' },
+  { p: 13, s: 'drinks', t: 'Beverages', n: 'Coffee, tea and everyday favourites' },
+  { p: 14, s: 'drinks', t: 'Cold Beverages', n: 'Cool and refreshing drinks for any time of day' }
+];
+
+let active = 'all';
+
+const filters = document.querySelector('#filters');
+const grid = document.querySelector('#grid');
+const viewer = document.querySelector('#viewer');
+
+function renderFilters() {
+  filters.innerHTML = sections
+    .map(([id, label]) =>
+      `<button data-id="${id}" class="${id === active ? 'active' : ''}">${label}</button>`
+    )
+    .join('');
+
+  filters.querySelectorAll('button').forEach(button => {
+    button.onclick = () => {
+      active = button.dataset.id;
+      renderFilters();
+      renderGrid();
+    };
+  });
+}
+
+function renderGrid() {
+  const shown = active === 'all'
+    ? pages
+    : pages.filter(item => item.s === active);
+
+  grid.innerHTML = shown
+    .map(item => `
+      <button class="card" data-page="${item.p}">
+        <img
+          loading="lazy"
+          src="menu/page-${String(item.p).padStart(2, '0')}.webp"
+          alt="${item.t} menu"
+        >
+        <span class="overlay"></span>
+        <span class="num">${String(item.p - 1).padStart(2, '0')}</span>
+        <span class="copy">
+          <small>${item.n}</small>
+          <b>${item.t}</b>
+          <i>View Full Menu →</i>
+        </span>
+      </button>
+    `)
+    .join('');
+
+  grid.querySelectorAll('.card').forEach(card => {
+    card.onclick = () =>
+      openMenu(pages.find(item => item.p == card.dataset.page));
+  });
+}
+
+function openMenu(item) {
+  document.querySelector('#viewerTitle').textContent = item.t;
+  document.querySelector('#viewerImg').src =
+    `menu/page-${String(item.p).padStart(2, '0')}.webp`;
+
+  viewer.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeViewer() {
+  viewer.hidden = true;
+  document.body.style.overflow = '';
+}
+
+document.querySelector('#closeViewer').onclick = closeViewer;
+
+viewer.onclick = event => {
+  if (event.target === viewer) closeViewer();
+};
+
+const mobileNav = document.querySelector('#mobileNav');
+
+document.querySelector('#navBtn').onclick = () => {
+  mobileNav.hidden = false;
+  document.body.style.overflow = 'hidden';
+};
+
+document.querySelector('#closeNav').onclick = () => {
+  mobileNav.hidden = true;
+  document.body.style.overflow = '';
+};
+
+mobileNav.querySelectorAll('a').forEach(link => {
+  link.onclick = () => {
+    mobileNav.hidden = true;
+    document.body.style.overflow = '';
+  };
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeViewer();
+    mobileNav.hidden = true;
+  }
+});
+
+renderFilters();
+renderGrid();
