@@ -57,7 +57,7 @@ function renderGrid() {
       <button class="card" data-page="${item.p}">
         <img
           loading="lazy"
-          src="menu/page-${String(item.p).padStart(2, '0')}.webp"
+         src="page-${String(item.p).padStart(2, '0')}.webp"
           alt="${item.t} menu"
         >
         <span class="overlay"></span>
@@ -80,7 +80,7 @@ function renderGrid() {
 function openMenu(item) {
   document.querySelector('#viewerTitle').textContent = item.t;
   document.querySelector('#viewerImg').src =
-    `menu/page-${String(item.p).padStart(2, '0')}.webp`;
+   `page-${String(item.p).padStart(2, '0')}.webp`
 
   viewer.hidden = false;
   document.body.style.overflow = 'hidden';
